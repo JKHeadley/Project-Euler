@@ -15,7 +15,44 @@ namespace Project_Euler
     {
         public void Solve()
         {
+            var fib = GenerateFibonacci(4000000);
+            Console.WriteLine("Fibonacci values under 4 million:\n");
+            Console.WriteLine(string.Join(", ", fib.ToArray()) + "\n");
+            var even = GetEven(fib);
+            Console.WriteLine("Even values:\n");
+            Console.WriteLine(string.Join(", ", even.ToArray()) + "\n");
+            Console.WriteLine("Sum of even values: " + even.Sum() + "\n");
+        }
 
+        List<int> GenerateFibonacci(int termSize)
+        {
+            List<int> sequence = new List<int>();
+            int term = 2, prevTerm = 1, newTerm = 0;
+            sequence.Add(prevTerm);
+            sequence.Add(term);
+            while (true)
+            {
+                newTerm = term + prevTerm;
+                if (newTerm > termSize)
+                    break;
+                prevTerm = term;
+                term = newTerm;
+                sequence.Add(newTerm);
+            }
+            return sequence;
+        }
+
+        List<int> GetEven(List<int> sequence)
+        {
+            List<int> even = new List<int>();
+            foreach (int term in sequence)
+            {
+                if (term % 2 == 0)
+                {
+                    even.Add(term);
+                }
+            }
+            return even;
         }
     }
 }
