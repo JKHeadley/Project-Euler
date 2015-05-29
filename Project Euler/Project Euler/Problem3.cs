@@ -21,8 +21,10 @@ namespace Project_Euler
 
         }
 
-        bool IsPrime(long num)
+        public static bool IsPrime(long num)
         {
+            if (num < 2)
+                return false;
             var factors = FindFactors(num);
             if (factors.Count == 2)
                 return true;
@@ -39,7 +41,7 @@ namespace Project_Euler
                 if (num % i == 0)
                 {
                     factors.Add(i);
-                    Console.WriteLine("Found a factor: " + i);
+                    //Console.WriteLine("Found a factor: " + i);
                 }
             }
             factors = new HashSet<long>(factors).ToList();
@@ -47,7 +49,7 @@ namespace Project_Euler
             return factors;
         }
 
-        List<long> FindFactors(long num)
+        public static List<long> FindFactors(long num)
         {
             List<long> factors = new List<long>();
             var square = (long)Math.Sqrt(num);
@@ -59,15 +61,16 @@ namespace Project_Euler
                 {
                     factors.Add(i);
                     factors.Add(j);
-                    Console.WriteLine("Found a factor: " + i);
-                    Console.WriteLine("Found a factor: " + j);
+                    //Console.WriteLine("Found a factor: " + i);
+                    //Console.WriteLine("Found a factor: " + j);
                 }
-                if (i == 1)
+                if (i == 0)
                     break;
                 if (prod >= num)
                 {
                     i--;
-                    j = num / i;
+                    if (i != 0)
+                        j = num / i;
                 }
                 else
                 {
@@ -80,7 +83,7 @@ namespace Project_Euler
             return factors;
         }
 
-        List<long> FindPrimeFactors(long num)
+        public static List<long> FindPrimeFactors(long num)
         {
             List<long> primeFactors = new List<long>();
             var factors = FindFactors(num);
