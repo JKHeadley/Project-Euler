@@ -13,7 +13,7 @@ namespace Project_Euler
         {
             Console.WriteLine("Enter problem # to solve (1-517):");
             //int probNum = Int32.Parse(Console.ReadLine());
-            int probNum = 4;
+            int probNum = 5;
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             switch (probNum)
