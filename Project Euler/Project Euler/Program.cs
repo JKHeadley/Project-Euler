@@ -13,7 +13,7 @@ namespace Project_Euler
         {
             Console.WriteLine("Enter problem # to solve (1-517):");
             //int probNum = Int32.Parse(Console.ReadLine());
-            int probNum = 7;
+            int probNum = 10;
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             switch (probNum)
@@ -45,6 +45,18 @@ namespace Project_Euler
                 case 7:
                     Console.WriteLine("Problem 7:\n");
                     new Problem7().Solve();
+                    break;
+                case 8:
+                    Console.WriteLine("Problem 8:\n");
+                    new Problem8().Solve();
+                    break;
+                case 9:
+                    Console.WriteLine("Problem 9:\n");
+                    new Problem9().Solve();
+                    break;
+                case 10:
+                    Console.WriteLine("Problem 10:\n");
+                    new Problem10().Solve();
                     break;
                 default:
                     Console.WriteLine("Problem not yet solved:\n");
