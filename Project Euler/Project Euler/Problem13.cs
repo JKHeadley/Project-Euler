@@ -14,20 +14,16 @@ namespace Project_Euler
     {
         public void Solve()
         {
-            int[] array = new int[20];
-            List<int> list = new List<int>();
-            list.Add(1);
-            list.Insert(list.Count, 2);
-            list.Insert(0, 3);
-            list.RemoveAt(list.Count-1);
-            list.RemoveAt(0);
-
-            deque<int> deq = new deque<int>();
-            deq.push_front(1);
-            deq.push_back(2);
-            deq.push_front(3);
-            deq.pop_back();
-            deq.pop_front();
+            BigNum e = new BigNum(0, 100), n = new BigNum(0, 100), stop = new BigNum();//finding e
+            for (; true; ++n)
+            {
+                e = e + (1 / n.factorial());
+                if (stop == e)
+                    break;
+                stop = e;
+                Console.WriteLine((int)e);
+            }
+            Console.WriteLine((int)e);
         }
     }
 }

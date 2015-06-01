@@ -40,6 +40,21 @@ namespace Project_Euler.Helpers
             return item;
         }
 
+        public void clear()
+        {
+            list.Clear();
+        }
+
+        public int size()
+        {
+            return list.Count();
+        }
+
+        public T at(int index)
+        {
+            return list[index];
+        }
+
         public T this[int index]
         {
             get

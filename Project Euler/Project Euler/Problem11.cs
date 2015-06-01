@@ -40,7 +40,7 @@ namespace Project_Euler
     {
         public void Solve()
         {
-            string line, num;
+            string line;
             int prod = 0, greatest_prod = 0;
             int[,] grid = new int[20, 20];
             System.IO.StreamReader file = new System.IO.StreamReader("../../../Problem11_grid.txt");
