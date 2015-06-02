@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Helpers\BigNum.cs" />
     <Compile Include="Helpers\deque.cs" />
+    <Compile Include="Helpers\LinkedList.cs" />
     <Compile Include="Problem1.cs" />
     <Compile Include="Problem10.cs" />
     <Compile Include="Problem11.cs" />

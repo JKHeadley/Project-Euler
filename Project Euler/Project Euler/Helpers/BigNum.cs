@@ -6,25 +6,25 @@ using System.Threading.Tasks;
 
 namespace Project_Euler.Helpers
 {
-    class BigNum
+    struct BigNum
     {
         private char sign;
         private int length;
         private deque<int> digits;
         private deque<int> postdec;
 
-        public BigNum()
-        {
-            digits = new deque<int>();
-            postdec = new deque<int>();
-            sign = 'p';
-            length = 10000;
-        }
+        //public BigNum()
+        //{
+        //    digits = new deque<int>();
+        //    postdec = new deque<int>();
+        //    sign = 'p';
+        //    length = 10000;
+        //}
 
         public BigNum(BigNum y)
         {
-            digits = y.digits;
-            postdec = y.postdec;
+            digits = new deque<int>(y.digits);
+            postdec = new deque<int>(y.postdec);
             sign = y.sign;
             length = y.length;
             this.check();
@@ -73,8 +73,8 @@ namespace Project_Euler.Helpers
 
         public BigNum(int num)
         {
-            digits = new deque<int>();
-            postdec = new deque<int>();
+            digits = new deque<int>(new List<int>());
+            postdec = new deque<int>(new List<int>());
             length = 10000;
             int a = num, first = 0;
             if (num < 0)
@@ -109,6 +109,8 @@ namespace Project_Euler.Helpers
         public BigNum(string number)
         {
             int a;
+            digits = new deque<int>(new List<int>());
+            postdec = new deque<int>(new List<int>());
             length = 10000;
             digits.clear();
             if (number.ElementAt(0) == '-') sign = 'n';
@@ -137,14 +139,15 @@ namespace Project_Euler.Helpers
 
         //public static implicit operator BigNum(BigNum num)
         //{
-        //    digits.clear();
-        //    postdec.clear();
-        //    digits = num.digits;
-        //    postdec = num.postdec;
-        //    sign = num.sign;
-        //    length = num.length;
-        //    this.check();
-        //    return this;
+        //    BigNum newnum = 0;
+        //    newnum.digits.clear();
+        //    newnum.postdec.clear();
+        //    newnum.digits = num.digits;
+        //    newnum.postdec = num.postdec;
+        //    newnum.sign = num.sign;
+        //    newnum.length = num.length;
+        //    newnum.check();
+        //    return newnum;
         //}
 
         public static implicit operator int(BigNum num)
@@ -182,6 +185,7 @@ namespace Project_Euler.Helpers
             }
             return s;
         }
+
 
         public static bool operator ==(BigNum x, BigNum y)
         {
@@ -310,7 +314,7 @@ namespace Project_Euler.Helpers
             if (x.sign == 'n' && y > 0)
                 return false;
 
-            BigNum big_int = new BigNum(2147483647), small_int = new BigNum(-2147483648);
+            BigNum big_int = 2147483647, small_int = -2147483648;
             int x_copy = 0;
             if (x > big_int)
                 return true;
@@ -368,7 +372,7 @@ namespace Project_Euler.Helpers
                 return false;
             if (x.sign == 'n' && y > 0)
                 return false;
-            BigNum big_int = new BigNum(2147483647), small_int = new BigNum(-2147483648);
+            BigNum big_int = 2147483647, small_int = -2147483648;
             int x_copy = 0;
             if (x > big_int)
                 return false;
@@ -388,7 +392,8 @@ namespace Project_Euler.Helpers
         public static BigNum operator +(BigNum x, BigNum y)
         {
             int a = 0, b = 0, c = 0, carry = 0, total = 0;
-            BigNum result = new BigNum(), x2, y2;
+            BigNum result = 0, x2, y2;
+            result.digits.clear();
             if (x.length > y.length)
                 result.setLength(y.length);
             else
@@ -775,14 +780,17 @@ namespace Project_Euler.Helpers
 
         public static BigNum operator -(BigNum x, BigNum y)
         {
-            BigNum result = new BigNum(), x2, y2;
+            BigNum result = 0, x2, y2;
+            result.digits.clear();
             if (x.length > y.length)
                 result.setLength(y.length);
             else
                 result.setLength(x.length);
             x2 = x;
+            //x2 = x;
             x2.sign = 'p';
             y2 = y;
+            //y2 = y;
             y2.sign = 'p';
 
             if (x.sign == y.sign)
@@ -793,6 +801,7 @@ namespace Project_Euler.Helpers
             }
             else
                 result = x2 + y2;
+            //////// This is likely either not necessary or just a bad fix ///////
             x2.sign = 'p';
             y2.sign = 'p';
             if (x2 > y2)
@@ -801,13 +810,18 @@ namespace Project_Euler.Helpers
                 result.sign = 'p';
             else
                 result.sign = 'n';
+            //////////////////////////////////////////////////////////////////////
             result.check();
             return result;
         }
 
         public static BigNum operator *(BigNum x, BigNum y)
         {
-            BigNum result = new BigNum(), result1 = new BigNum(), x2 = new BigNum(), y2 = new BigNum();
+            BigNum result = 0, result1 = 0, x2 = 0, y2 = 0;
+            result.digits.clear();
+            result1.digits.clear();
+            x2.digits.clear();
+            y2.digits.clear();
             if (x.length > y.length)
                 result.setLength(y.length);
             else
@@ -912,7 +926,7 @@ namespace Project_Euler.Helpers
                     if (carry > 0)
                         temp2.digits.push_front(1);
                 }
-                sum = temp2;
+                sum = new BigNum(temp2);
                 temp2.digits.clear();
                 temp.digits.clear();
             }
@@ -920,7 +934,8 @@ namespace Project_Euler.Helpers
             sum.sign = result.sign;
             result = sum;
             //the last part of the code copies result into result2 but with the right decimal point placement
-            BigNum result2 = new BigNum();
+            BigNum result2 = 0;
+            result2.digits.clear();
             result2.sign = result.sign;
             result2.setLength(result.length);
             int w = 0, z = 0;
@@ -954,8 +969,11 @@ namespace Project_Euler.Helpers
 
         public static BigNum operator /(BigNum x, BigNum y)
         {
-            BigNum result = new BigNum(), z = new BigNum(0, 1), x2 = new BigNum(), y2 = new BigNum(), x3 = new BigNum(0, 1), y3 = new BigNum(0, 1),
+            BigNum result = 0, z = new BigNum(0, 1), x2 = 0, y2 = 0, x3 = new BigNum(0, 1), y3 = new BigNum(0, 1),
                 x4 = new BigNum(0, 1), y4 = new BigNum(0, 1), Zero = new BigNum(0, 1), point = new BigNum(0, 1);
+            result.digits.clear();
+            x2.digits.clear();
+            y2.digits.clear();
             if (x.length > y.length)
                 result.setLength(y.length);
             else
@@ -966,7 +984,7 @@ namespace Project_Euler.Helpers
                 result.sign = 'n';
             if (y.digits.size() == 1 && y.digits[0] == 1 && y.postdec.size() == 1 && y.postdec[0] == 0)
             {//check if divided by one
-                result = x;
+                result = new BigNum(x, result.length);
                 if (x.sign == y.sign)
                     result.sign = 'p';
                 else
@@ -974,8 +992,8 @@ namespace Project_Euler.Helpers
                 result.check();
                 return result;
             }
-            x3 = x;
-            y3 = y;
+            x3 = new BigNum(x, 1);
+            y3 = new BigNum(y, 1);
             x3.sign = 'p';
             y3.sign = 'p';
             if (x3 == y3)
@@ -1024,7 +1042,7 @@ namespace Project_Euler.Helpers
                 y2.sign = 'p';
                 ////cout << x2 << endl << y2 << endl;
                 if (x2 == 0)//zero division
-                    return new BigNum(0);
+                    return 0;
                 if (y2 == 0)
                     throw new DivideByZeroException();
                 while (x2.digits[x2.digits.size() - 1] == 0 && y2.digits[y2.digits.size() - 1] == 0)
@@ -1033,9 +1051,10 @@ namespace Project_Euler.Helpers
                     y2.digits.pop_back();
                 }
                 int cnt = 0;
-                BigNum xdiv = new BigNum();//remainder during division
-
-                BigNum result2 = new BigNum();
+                BigNum xdiv = 0;//remainder during division
+                xdiv.digits.clear();
+                BigNum result2 = 0;
+                result2.digits.clear();
                 xdiv.postdec.push_back(0);
                 int count = 0;//keeps zeros from adding up in front
                 ////cout << x2 << endl << y2 << endl;
@@ -1043,7 +1062,7 @@ namespace Project_Euler.Helpers
                 {// if answer is a multiple of 1
                     result.digits.push_back(1);
                     ////cout << point << endl;
-                    point = point + new BigNum(x.digits.size() - y.digits.size());
+                    point = point + (x.digits.size() - y.digits.size());
                     ////cout << point << endl;
                     if (x.digits.size() == 1 && x.digits[0] == 0)
                         point = point - 1;
@@ -1181,12 +1200,12 @@ namespace Project_Euler.Helpers
                 }
                 if (!(y.postdec.size() == 1 && y.postdec[0] == 0))
                 {//helps decide decimal placement
-                    point = point + new BigNum(y.postdec.size());
+                    point = point + y.postdec.size();
                 }
                 //cout << point << endl << endl;
                 if (!(x.postdec.size() == 1 && x.postdec[0] == 0))
                 {//helps decide decimal placement
-                    point = point - new BigNum(x.postdec.size());
+                    point = point - x.postdec.size();
                 }
                 //cout << point << endl << endl;
                 if (point < 0)//helps decide decimal placement
@@ -1223,7 +1242,8 @@ namespace Project_Euler.Helpers
             catch (DivideByZeroException)
             {
                 Console.WriteLine("error, can't divide by zero");
-                return 0;
+                throw (new DivideByZeroException());
+                //return 0;
             }
         }
 
@@ -1234,7 +1254,7 @@ namespace Project_Euler.Helpers
                 //cout << "Can only mod whole numbers." << endl;
                 return x;
             }*/
-            BigNum result = new BigNum(), mod = new BigNum(), x2 = new BigNum(), y2 = new BigNum();
+            BigNum result = 0, mod = 0, x2 = 0, y2 = 0;
             y2 = y;
             y2.sign = 'p';
             x2 = x;
@@ -1376,7 +1396,7 @@ namespace Project_Euler.Helpers
 
         public BigNum sqrt()
         {
-            BigNum x = new BigNum(1, length), xcopy = new BigNum(), xcopy2 = new BigNum();
+            BigNum x = new BigNum(1, length), xcopy = 0, xcopy2 = 0;
             int count = 0, count2 = 0;
             while (x.digits.size() < (digits.size() / 2) + 1)
             {//gets x closer to size of answer
@@ -1473,7 +1493,7 @@ namespace Project_Euler.Helpers
 
         public BigNum arctan()
         {
-            BigNum x = this, result = this, stop = new BigNum();
+            BigNum x = this, result = this, stop = 0;
             for (int n = 3, i = 0; true; i++, n += 2)
             {
                 if (i % 2 == 0)

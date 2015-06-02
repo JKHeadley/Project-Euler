@@ -14,7 +14,7 @@ namespace Project_Euler
     {
         public void Solve()
         {
-            BigNum e = new BigNum(0, 100), n = new BigNum(0, 100), stop = new BigNum();//finding e
+            BigNum e = new BigNum(0, 100), n = new BigNum(0, 100), stop = 0;//finding e
             for (; true; ++n)
             {
                 e = e + (1 / n.factorial());
@@ -24,6 +24,9 @@ namespace Project_Euler
                 Console.WriteLine((int)e);
             }
             Console.WriteLine((int)e);
+
+
+           
         }
     }
 }

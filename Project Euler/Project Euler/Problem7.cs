@@ -25,10 +25,12 @@ namespace Project_Euler
                 if (Problem3.IsPrime(i))
                 {
                     primes.Add(i);
-                    Console.WriteLine(primes.Last() + " is the " + primes.Count + " prime number.\n");
+                    //Console.WriteLine(primes.Last() + " is the " + primes.Count + " prime number.\n");
                 }
                 i++;
             }
+            Console.WriteLine(primes.Last() + " is the " + primes.Count + " prime number.\n");
+            Console.WriteLine("The correct solution is : " + 104743);
         }
     }
 }

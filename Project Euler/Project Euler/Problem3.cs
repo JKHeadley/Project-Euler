@@ -20,6 +20,7 @@ namespace Project_Euler
             Console.WriteLine("Prime factors for 600851475143:\n");
             Console.WriteLine(string.Join(", ", primeFactors.ToArray()) + "\n");
             Console.WriteLine("Largest prime factor: " + primeFactors.Last() + "\n");
+            Console.WriteLine("The correct solution is: " + 6857);
 
         }
 

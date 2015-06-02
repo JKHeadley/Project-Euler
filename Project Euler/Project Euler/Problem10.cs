@@ -26,7 +26,7 @@ namespace Project_Euler
                 if (Problem3.IsPrime(i))
                 {
                     //primes.Add(i);
-                    //Console.WriteLine("Prime found: " + i + "\n");
+                    Console.WriteLine("Prime found: " + i + "\n");
                     sum += i;
                 }
                 i++;

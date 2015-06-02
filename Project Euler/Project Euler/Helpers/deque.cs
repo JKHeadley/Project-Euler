@@ -6,14 +6,19 @@ using System.Threading.Tasks;
 
 namespace Project_Euler.Helpers
 {
-    class deque<T>
+    struct deque<T>
     {
         
         private List<T> list;
 
-        public deque()
+        public deque(List<T> list)
         {
-            list = new List<T>();
+            this.list = list;
+        }
+
+        public deque(deque<T> d)
+        {
+            list = new List<T>(d.list);
         }
 
         public void push_front(T item)
