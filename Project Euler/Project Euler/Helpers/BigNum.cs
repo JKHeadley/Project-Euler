@@ -60,14 +60,24 @@ namespace Project_Euler.Helpers
             return this;
         }
 
-        private void setLength(int l)
+        private void SetLength(int l)
         {
             length = l;
         }
 
-        private int getLength()
+        private int GetLength()
         {
             return length;
+        }
+
+        public int GetDigitsSize()
+        {
+            return digits.size();
+        }
+
+        public List<int> GetDigits()
+        {
+            return digits.GetList();
         }
 
 
@@ -395,9 +405,9 @@ namespace Project_Euler.Helpers
             BigNum result = 0, x2, y2;
             result.digits.clear();
             if (x.length > y.length)
-                result.setLength(y.length);
+                result.SetLength(y.length);
             else
-                result.setLength(x.length);
+                result.SetLength(x.length);
             x2 = new BigNum(x);//copies of x and y that can be changed
             y2 = new BigNum(y);
             if ((x.digits.size() == 1 && x.digits[0] == 0) && (x.postdec.size() == 1 && x.postdec[0] == 0))
@@ -783,9 +793,9 @@ namespace Project_Euler.Helpers
             BigNum result = 0, x2, y2;
             result.digits.clear();
             if (x.length > y.length)
-                result.setLength(y.length);
+                result.SetLength(y.length);
             else
-                result.setLength(x.length);
+                result.SetLength(x.length);
             x2 = new BigNum(x);
             x2.sign = 'p';
             y2 = new BigNum(y);
@@ -821,10 +831,10 @@ namespace Project_Euler.Helpers
             x2.digits.clear();
             y2.digits.clear();
             if (x.length > y.length)
-                result.setLength(y.length);
+                result.SetLength(y.length);
             else
-                result.setLength(x.length);
-            result1.setLength(result.length);
+                result.SetLength(x.length);
+            result1.SetLength(result.length);
             if (!(x.postdec.size() == 1 && x.postdec[0] == 0))
             {
                 for (int a = x.postdec.size() - 1, b = 0; a >= 0; a--)
@@ -851,8 +861,8 @@ namespace Project_Euler.Helpers
                 b = y.digits[a];
                 y2.digits.push_front(b);
             }
-            x2.setLength(result.length);
-            y2.setLength(result.length);
+            x2.SetLength(result.length);
+            y2.SetLength(result.length);
             x2.check();
             y2.check();
 
@@ -935,7 +945,7 @@ namespace Project_Euler.Helpers
             BigNum result2 = 0;
             result2.digits.clear();
             result2.sign = result.sign;
-            result2.setLength(result.length);
+            result2.SetLength(result.length);
             int w = 0, z = 0;
             if ((x.postdec.size() == 1 && x.postdec[0] == 0) && (y.postdec.size() == 1 && y.postdec[0] == 0))
                 w = 0;
@@ -973,9 +983,9 @@ namespace Project_Euler.Helpers
             x2.digits.clear();
             y2.digits.clear();
             if (x.length > y.length)
-                result.setLength(y.length);
+                result.SetLength(y.length);
             else
-                result.setLength(x.length);
+                result.SetLength(x.length);
             if (x.sign == y.sign)
                 result.sign = 'p';
             else
@@ -1069,7 +1079,7 @@ namespace Project_Euler.Helpers
                     if (y.digits.size() == 1 && y.digits[0] == 0)
                         point = point + 1;
                     ////cout << point << endl;
-                    result2.setLength(result.length);
+                    result2.SetLength(result.length);
                     result2.sign = result.sign;
                     if (point == 0)
                     {
@@ -1176,7 +1186,7 @@ namespace Project_Euler.Helpers
                         x3.digits.pop_back();
                     while (y3.digits.size() > x3.digits.size())
                         y3.digits.pop_back();
-                    if (x3 > y3)
+                    if (x3 >= y3)
                         point = point + 1;
                     //cout << point << endl << endl;
                 }
@@ -1221,7 +1231,7 @@ namespace Project_Euler.Helpers
                 for (int i = point; i < 0; i++)
                     result.digits.push_front(0);
                 //cout << result << endl << endl;
-                result2.setLength(result.length);
+                result2.SetLength(result.length);
                 result2.sign = result.sign;
                 for (; point > 0 && result.digits.size() > 0; --point)
                 {
@@ -1266,8 +1276,8 @@ namespace Project_Euler.Helpers
             {
                 return 0;
             }
-            x2.setLength(1);
-            y2.setLength(1);
+            x2.SetLength(1);
+            y2.SetLength(1);
             result = x2 / y2;
             result.postdec.clear();
             result = result * y2;
@@ -1283,7 +1293,7 @@ namespace Project_Euler.Helpers
         public static BigNum operator +(int x, BigNum y)
         {
             BigNum x2 = x, result;
-            x2.setLength(y.length);
+            x2.SetLength(y.length);
             result = x2 + y;
             result.check();
             return result;
@@ -1292,7 +1302,7 @@ namespace Project_Euler.Helpers
         public static BigNum operator +(BigNum x, int y)
         {
             BigNum y2 = y, result;
-            y2.setLength(x.length);
+            y2.SetLength(x.length);
             result = x + y2;
             result.check();
             return result;
@@ -1301,7 +1311,7 @@ namespace Project_Euler.Helpers
         public static BigNum operator -(int x, BigNum y)
         {
             BigNum x2 = x, result;
-            x2.setLength(y.length);
+            x2.SetLength(y.length);
             result = x2 - y;
             result.check();
             return result;
@@ -1310,7 +1320,7 @@ namespace Project_Euler.Helpers
         public static BigNum operator -(BigNum x, int y)
         {
             BigNum y2 = y, result;
-            y2.setLength(x.length);
+            y2.SetLength(x.length);
             result = x - y2;
             result.check();
             return result;
@@ -1319,7 +1329,7 @@ namespace Project_Euler.Helpers
         public static BigNum operator *(int x, BigNum y)
         {
             BigNum x2 = x, result;
-            x2.setLength(y.length);
+            x2.SetLength(y.length);
             result = x2 * y;
             result.check();
             return result;
@@ -1328,7 +1338,7 @@ namespace Project_Euler.Helpers
         public static BigNum operator *(BigNum x, int y)
         {
             BigNum y2 = y, result;
-            y2.setLength(x.length);
+            y2.SetLength(x.length);
             result = x * y2;
             result.check();
             return result;
@@ -1337,7 +1347,7 @@ namespace Project_Euler.Helpers
         public static BigNum operator /(int x, BigNum y)
         {
             BigNum x2 = x, result;
-            x2.setLength(y.length);
+            x2.SetLength(y.length);
             result = x2 / y;
             result.check();
             return result;
@@ -1346,7 +1356,7 @@ namespace Project_Euler.Helpers
         public static BigNum operator /(BigNum x, int y)
         {
             BigNum y2 = y, result;
-            y2.setLength(x.length);
+            y2.SetLength(x.length);
             result = x / y2;
             result.check();
             return result;
@@ -1355,7 +1365,7 @@ namespace Project_Euler.Helpers
         public static BigNum operator %(int x, BigNum y)
         {
             BigNum x2 = x, result;
-            x2.setLength(y.length);
+            x2.SetLength(y.length);
             result = x2 % y;
             result.check();
             return result;
@@ -1364,7 +1374,7 @@ namespace Project_Euler.Helpers
         public static BigNum operator %(BigNum x, int y)
         {
             BigNum y2 = y, result;
-            y2.setLength(x.length);
+            y2.SetLength(x.length);
             result = x % y2;
             result.check();
             return result;

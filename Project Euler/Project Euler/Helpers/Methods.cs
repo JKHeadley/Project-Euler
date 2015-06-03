@@ -92,5 +92,51 @@ namespace Project_Euler.Helpers
             else
                 return false;
         }
+
+        public static List<int> GetCollatzSequence(int num)
+        {
+            /// n → n/2 (n is even)
+            /// n → 3n + 1 (n is odd)
+            List<int> sequence = new List<int>();
+            sequence.Add(num);
+            int n = num;
+            while (n != 1)
+            {
+                if (IsEven(n))
+                    n /= 2;
+                else
+                    n = 3 * n + 1;
+                sequence.Add(n);
+            }
+            return sequence;
+        }
+
+        public static int GetCollatzSize(int num)
+        {
+            /// n → n/2 (n is even)
+            /// n → 3n + 1 (n is odd)
+            int size = 1;
+            long n = num;
+            while (n != 1)
+            {
+                if (n <= 0)
+                {
+                    Console.WriteLine("Sequence broken! n is <= 0.");
+                    break;
+                }
+                if (IsEven(n))
+                    n /= 2;
+                else
+                    n = 3 * n + 1;
+                size++;
+            }
+            return size;
+        }
+
+        public static int SumDigits(BigNum num)
+        {
+            List<int> digits = num.GetDigits();
+            return digits.Sum();
+        }
     }
 }

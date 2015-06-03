@@ -21,6 +21,11 @@ namespace Project_Euler.Helpers
             list = new List<T>(d.list);
         }
 
+        public List<T> GetList()
+        {
+            return list;
+        }
+
         public void push_front(T item)
         {
             list.Insert(0, item);

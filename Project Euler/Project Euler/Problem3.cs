@@ -17,7 +17,7 @@ namespace Project_Euler
     {
         public void Solve()
         {
-            var primeFactors = Methods.FindPrimeFactors(600851475143);
+            var primeFactors = Methods.FindPrimeFactors(543634);
             Console.WriteLine("Prime factors for 600851475143:\n");
             Console.WriteLine(string.Join(", ", primeFactors.ToArray()) + "\n");
             Console.WriteLine("Largest prime factor: " + primeFactors.Last() + "\n");
