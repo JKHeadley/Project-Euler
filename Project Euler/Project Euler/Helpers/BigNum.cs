@@ -398,17 +398,17 @@ namespace Project_Euler.Helpers
                 result.setLength(y.length);
             else
                 result.setLength(x.length);
-            x2 = x;//copies of x and y that can be changed
-            y2 = y;
+            x2 = new BigNum(x);//copies of x and y that can be changed
+            y2 = new BigNum(y);
             if ((x.digits.size() == 1 && x.digits[0] == 0) && (x.postdec.size() == 1 && x.postdec[0] == 0))
             {//if x is 0
-                result = y;
+                result = new BigNum(y);
                 result.check();
                 return result;
             }
             if ((y.digits.size() == 1 && y.digits[0] == 0) && (y.postdec.size() == 1 && y.postdec[0] == 0))
             {//if y is 0
-                result = x;
+                result = new BigNum(x);
                 result.check();
                 return result;
             }
@@ -786,11 +786,9 @@ namespace Project_Euler.Helpers
                 result.setLength(y.length);
             else
                 result.setLength(x.length);
-            x2 = x;
-            //x2 = x;
+            x2 = new BigNum(x);
             x2.sign = 'p';
-            y2 = y;
-            //y2 = y;
+            y2 = new BigNum(y);
             y2.sign = 'p';
 
             if (x.sign == y.sign)
@@ -932,7 +930,7 @@ namespace Project_Euler.Helpers
             }
             sum.check();
             sum.sign = result.sign;
-            result = sum;
+            result = new BigNum(sum);
             //the last part of the code copies result into result2 but with the right decimal point placement
             BigNum result2 = 0;
             result2.digits.clear();
@@ -1055,7 +1053,8 @@ namespace Project_Euler.Helpers
                 xdiv.digits.clear();
                 BigNum result2 = 0;
                 result2.digits.clear();
-                xdiv.postdec.push_back(0);
+                result2.postdec.clear();
+                //xdiv.postdec.push_back(0);
                 int count = 0;//keeps zeros from adding up in front
                 ////cout << x2 << endl << y2 << endl;
                 if (x2 == y2)
@@ -1130,7 +1129,7 @@ namespace Project_Euler.Helpers
                     }
                 }
                 else
-                    xdiv = x2;//otherwise xdiv would = 0
+                    xdiv = new BigNum(x2);//otherwise xdiv would = 0
 
 
                 b = 0;
@@ -1146,7 +1145,7 @@ namespace Project_Euler.Helpers
                     while (b < x.length)
                     {
                         ////cout << xdiv << endl;
-                        for (cnt = 0, z = Zero; z <= xdiv; cnt++)
+                        for (cnt = 0, z = new BigNum(Zero); z <= xdiv; cnt++)
                         {
                             z = z + y2;
                             ////cout << z << endl;
@@ -1171,8 +1170,8 @@ namespace Project_Euler.Helpers
                 y3.digits = y.digits;
                 if (x3 > y3)
                 {//keeps decimal point from being one digit off
-                    x3 = x2;
-                    y3 = y2;
+                    x3 = new BigNum(x2);
+                    y3 = new BigNum(y2);
                     while (x3.digits.size() > y3.digits.size())
                         x3.digits.pop_back();
                     while (y3.digits.size() > x3.digits.size())
@@ -1183,10 +1182,10 @@ namespace Project_Euler.Helpers
                 }
                 else
                 {
-                    x3 = x2;
-                    y3 = y2;
-                    x4 = x2;
-                    y4 = y2;
+                    x3 = new BigNum(x2);
+                    y3 = new BigNum(y2);
+                    x4 = new BigNum(x2);
+                    y4 = new BigNum(y2);
                     while (x3.digits.size() > y3.digits.size())
                         x3.digits.pop_back();
                     while (y3.digits.size() > x3.digits.size())
@@ -1255,9 +1254,9 @@ namespace Project_Euler.Helpers
                 return x;
             }*/
             BigNum result = 0, mod = 0, x2 = 0, y2 = 0;
-            y2 = y;
+            y2 = new BigNum(y);
             y2.sign = 'p';
-            x2 = x;
+            x2 = new BigNum(x);
             x2.sign = 'p';
             if (y2 > x2)
             {
@@ -1375,7 +1374,7 @@ namespace Project_Euler.Helpers
         {
             if (y == 0)
                 return new BigNum(1, x.length);
-            BigNum p = x;
+            BigNum p = new BigNum(x);
             for (int i = y; i > 1; i--)
                 p = p * x;
             return p;
@@ -1405,8 +1404,8 @@ namespace Project_Euler.Helpers
             while (xcopy != x && count2 <= 0)
             {//runs formula until accurate at set length
                 if (count % 2 == 0)
-                    xcopy2 = x;
-                xcopy = x;
+                    xcopy2 = new BigNum(x);
+                xcopy = new BigNum(x);
                 x = x + (1 / (2 * x)) * (this - (x * x));
                 if (xcopy2 == x)
                     count2++;
@@ -1422,7 +1421,7 @@ namespace Project_Euler.Helpers
                 return new BigNum(1, length);
             if (postdec.size() == 1 && postdec[0] == 0)
             {
-                BigNum x = this, result = this;
+                BigNum x = new BigNum(this), result = new BigNum(this);
                 x.sign = 'p';
                 x = x - 1;
                 for (int dot = 0; x > 0; --x, dot++)
@@ -1444,7 +1443,7 @@ namespace Project_Euler.Helpers
                 return new BigNum(1, length);
             if (postdec.size() == 1 && postdec[0] == 0)
             {
-                BigNum x = this, result = this;
+                BigNum x = new BigNum(this), result = new BigNum(this);
                 x.sign = 'p';
                 x = x - 2;
                 for (int dot = 0; x > 0; x = x - 2, dot++)
@@ -1462,7 +1461,7 @@ namespace Project_Euler.Helpers
 
         public BigNum sin()
         {
-            BigNum x = this, result = this, fact = new BigNum(3, length);
+            BigNum x = new BigNum(this), result = new BigNum(this), fact = new BigNum(3, length);
             for (int exp = 3, i = 0; i < 20; i++, exp += 2, fact = fact + 2)
             {
                 if (i % 2 == 0)
@@ -1475,7 +1474,7 @@ namespace Project_Euler.Helpers
 
         public BigNum cos()
         {
-            BigNum x = this, result = new BigNum(1, length), fact = new BigNum(2, length);
+            BigNum x = new BigNum(this), result = new BigNum(1, length), fact = new BigNum(2, length);
             for (int exp = 2, i = 0; i < 20; i++, exp += 2, fact = fact + 2)
             {
                 if (i % 2 == 0)
@@ -1493,7 +1492,7 @@ namespace Project_Euler.Helpers
 
         public BigNum arctan()
         {
-            BigNum x = this, result = this, stop = 0;
+            BigNum x = new BigNum(this), result = new BigNum(this), stop = 0;
             for (int n = 3, i = 0; true; i++, n += 2)
             {
                 if (i % 2 == 0)
@@ -1502,7 +1501,7 @@ namespace Project_Euler.Helpers
                     result = result + ((x ^ n) / n);
                 if (stop == result)
                     return result;
-                stop = result;
+                stop = new BigNum(result);
                 //cout << result << endl;
             }
             //return result;
