@@ -44,6 +44,8 @@
     <Compile Include="Helpers\BigNum.cs" />
     <Compile Include="Helpers\deque.cs" />
     <Compile Include="Helpers\LinkedList.cs" />
+    <Compile Include="Helpers\Methods.cs" />
+    <Compile Include="Pi.cs" />
     <Compile Include="Problem1.cs" />
     <Compile Include="Problem10.cs" />
     <Compile Include="Problem11.cs" />
@@ -62,6 +64,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Text Files\50digitnums.txt" />
+    <Content Include="Text Files\Problem11_grid.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

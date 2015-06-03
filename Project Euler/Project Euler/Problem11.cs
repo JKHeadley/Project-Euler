@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Reflection;
 
 namespace Project_Euler
 {
@@ -43,7 +44,7 @@ namespace Project_Euler
             string line;
             int prod = 0, greatest_prod = 0;
             int[,] grid = new int[20, 20];
-            System.IO.StreamReader file = new System.IO.StreamReader("../../../Problem11_grid.txt");
+            System.IO.StreamReader file = new System.IO.StreamReader("../../Text Files/Problem11_grid.txt");
             for (int i = 0; i < 20; i++)
             {
                 line = file.ReadLine();

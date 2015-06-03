@@ -13,11 +13,15 @@ namespace Project_Euler
         {
             Console.WriteLine("Enter problem # to solve (1-517):");
             //int probNum = Int32.Parse(Console.ReadLine());
-            int probNum = 13;
+            int probNum = 3;
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             switch (probNum)
             {
+                case 0:
+                    Console.WriteLine("Pi Time!:\n");
+                    new Pi().Solve();
+                    break;
                 case 1:
                     Console.WriteLine("Problem 1:\n");
                     new Problem1().Solve();

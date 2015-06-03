@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Project_Euler.Helpers;
 
 namespace Project_Euler
 {
@@ -23,7 +24,7 @@ namespace Project_Euler
             double sum = 0;
             while (i < num_below)
             {
-                if (Problem3.IsPrime(i))
+                if (Methods.IsPrime(i))
                 {
                     //primes.Add(i);
                     Console.WriteLine("Prime found: " + i + "\n");

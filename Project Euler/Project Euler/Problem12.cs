@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Project_Euler.Helpers;
 
 namespace Project_Euler
 {
@@ -34,7 +35,7 @@ namespace Project_Euler
             while (true)
             {
                 triangle = GetNthTriangleNumber(i);
-                var factors = Problem3.FindFactors(triangle);
+                var factors = Methods.FindFactors(triangle);
                 Console.WriteLine("Triangle # " + triangle + " has " + factors.Count + " divisors.\n");
                 if (factors.Count > 500)
                 {

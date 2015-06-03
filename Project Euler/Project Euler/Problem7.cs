@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Project_Euler.Helpers;
 
 namespace Project_Euler
 {
@@ -22,7 +23,7 @@ namespace Project_Euler
             List<int> primes = new List<int>();
             while (primes.Count < 10001)
             {
-                if (Problem3.IsPrime(i))
+                if (Methods.IsPrime(i))
                 {
                     primes.Add(i);
                     //Console.WriteLine(primes.Last() + " is the " + primes.Count + " prime number.\n");
