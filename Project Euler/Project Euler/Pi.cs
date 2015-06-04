@@ -11,6 +11,19 @@ namespace Project_Euler
     {
         public void Solve()
         {
+            long x = 543634;
+
+            Console.WriteLine("Derrill's code:\n\n");
+            var list1 = Methods.FindPrimeFactors_Derrill(x);
+            Console.WriteLine("\n\nMy code:\n\n");
+            var list2 = Methods.FindPrimeFactors(x);
+
+            //Console.WriteLine("Derrill's code:\n\n");
+            //list1 = Methods.FindFactors_Derrill(x);
+            //Console.WriteLine("\n\nMy code:\n\n");
+            //list2 = Methods.FindFactors(x);
+
+
             //BigNum e = new BigNum(0, 100), n = new BigNum(0, 100), stop = 0;//finding e
             //for (; true; ++n)
             //{
@@ -42,22 +55,22 @@ namespace Project_Euler
             //Console.WriteLine((string)pi + "\n\nDone");
 
 
-            BigNum pi = new BigNum(0, 100), n = new BigNum(0, 100), eight = new BigNum(8, 100), stop = new BigNum();//good
-            for (; true; ++n)
-            {
-                pi = pi + ((((4 * n).factorial()) * (1103 + (26390 * n))) / (((n.factorial()) ^ 4) * (new BigNum(396, 600) ^ (4 * n))));
-                //cout << n << " " << pi << endl;
-                Console.WriteLine((string)n + " " + (string)pi);
-                if (stop == pi)
-                    break;
-                stop = pi;
-            }
-            pi = pi * ((eight.sqrt()) / 9801);
-            //cout << pi << endl;
-            Console.WriteLine((string)pi);
-            pi = 1 / pi;
-            //cout << pi << endl;
-            Console.WriteLine((string)pi);
+            //BigNum pi = new BigNum(0, 100), n = new BigNum(0, 100), eight = new BigNum(8, 100), stop = new BigNum();//good
+            //for (; true; ++n)
+            //{
+            //    pi = pi + ((((4 * n).factorial()) * (1103 + (26390 * n))) / (((n.factorial()) ^ 4) * (new BigNum(396, 600) ^ (4 * n))));
+            //    //cout << n << " " << pi << endl;
+            //    Console.WriteLine((string)n + " " + (string)pi);
+            //    if (stop == pi)
+            //        break;
+            //    stop = pi;
+            //}
+            //pi = pi * ((eight.sqrt()) / 9801);
+            ////cout << pi << endl;
+            //Console.WriteLine((string)pi);
+            //pi = 1 / pi;
+            ////cout << pi << endl;
+            //Console.WriteLine((string)pi);
         }
     }
 }
