@@ -147,23 +147,22 @@ namespace Project_Euler.Helpers
         public static List<List<int>> FindPrimeSummations(int num)
         {
             List<int> primes = FindPrimesBelow(num);
-            int combSize = num / 2;
-            var primeCombinations = FindCombinations(primes, combSize);
-            primeCombinations.Sort();
+            int kCardinality = num / 2;
+            var primeCombinations = FindCombinations(primes, kCardinality);
             //var unique = new HashSet<List<int>>(primeCombinations);
             return primeCombinations;
         }
 
-        public static List<List<int>> FindCombinations(List<int> set, int combSize)
+        public static List<List<int>> FindCombinations(List<int> set, int kCardinality)
         {
             List<List<int>> combinations = new List<List<int>>();
-            foreach (int num in set)
-            {
-                List<int> item = new List<int>();
-                item.Add(num);
-                combinations.Add(item);
-            }
-            return recursiveStuff(combinations, set, combSize, 0);
+            //foreach (int num in set)
+            //{
+            //    List<int> item = new List<int>();
+            //    item.Add(num);
+            //    combinations.Add(item);
+            //}
+            return recursiveStuff(combinations, set, kCardinality);
             //List<List<int>> combinations = new List<List<int>>();
             //for (int i = 0; i < combSize; i++)
             //{
@@ -194,30 +193,136 @@ namespace Project_Euler.Helpers
         //        return recursiveFunc(combinations, set, combSize - 1);
         //}
 
-        private static List<List<int>> recursiveStuff(List<List<int>> combinations, List<int> set, int combSize, int index)
+        //private static List<List<int>> recursiveStuff(List<List<int>> combinations, List<int> set, int multisetSize)
+        //{
+        //    foreach (List<int> comb in combinations)
+        //    {
+        //        if (comb.Count < multisetSize)
+        //        {
+        //            for (int i = 0; i < set.Count; i++)
+        //            {
+        //                if (comb.Count < multisetSize)
+        //                {
+        //                    comb.Add(set[i]);
+        //                    if (comb.Count < multisetSize)
+        //                    {
+        //                        for (int j = i; j < set.Count - 1; j++)
+        //                        {
+        //                            combinations.Add(new List<int>(comb));
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //            return recursiveStuff(combinations, set, multisetSize);
+        //        }
+        //    }
+        //    return combinations;
+        //}
+
+        private static List<List<int>> recursiveStuff(List<List<int>> combinations, List<int> set, int kCardinality)
         {
-            foreach (List<int> comb in combinations)
+            int index = 0;
+            int setIndex = 0;
+            int setIndex_to_add = 0;
+            int c_in_foc = kCardinality - 1;
+            bool done = false;
+            //initialize the first combination
+            var comb = new List<int>();
+            for (int i = 0; i < kCardinality; i++)
             {
-                if (comb.Count < combSize)
+                comb.Add(set[0]);
+            }
+            combinations.Add(comb);
+            index++;
+            setIndex_to_add++;
+            //fill in the rest
+            while (true)
+            {
+                comb = new List<int>();
+                int i = 0;
+                while (i < c_in_foc)
                 {
-                    for (int i = index; i < set.Count; i++)
+                    comb.Add(combinations[index-1][i]);
+                    i++;
+                }
+                i--;
+                while(i < kCardinality - 1)
+                {
+                    comb.Add(set[setIndex_to_add]);
+                    i++;
+                }
+                setIndex_to_add++;
+
+
+                if (setIndex_to_add >= set.Count)
+                {
+                    for (; comb[c_in_foc] == set.Last(); c_in_foc--) 
                     {
-                        if (comb.Count < combSize)
+                        if (c_in_foc == 0)
                         {
-                            comb.Add(set[i]);
-                            for (int j = i; j < set.Count - 1; j++)
-                            {
-                                combinations.Add(new List<int>(comb));
-                            }
+                            combinations.Add(comb);
+                            done = true;
+                            break;
                         }
                     }
-                    return recursiveStuff(combinations, set, combSize, index);
+                    if (done == true)
+                        break;
+                    setIndex_to_add = set.IndexOf(comb[c_in_foc]) + 1;
                 }
+                else
+                {
+                    for (; comb[c_in_foc] != set.Last() && c_in_foc < kCardinality - 1; c_in_foc++) { }
+                }
+
+                combinations.Add(comb);
+                index++;
             }
             return combinations;
         }
 
+        //private static List<List<int>> recursiveStuff(List<List<int>> combinations, List<int> set, int kCardinality)
+        //{
+        //    int index = 0;
+        //    int setIndex = 0;
+        //    int setIndex_to_add = 0;
+        //    int c_in_foc = kCardinality + 1;
+        //    int c_in = 0;
+        //    bool addFlag = false;
+        //    initialize the first combination
+        //    var comb = new List<int>();
+        //    var comb_next = recursiveNext(comb, set, c_in ,setIndex, setIndex_to_add, c_in_foc);
+        //}
 
+        //public static recursiveNext(List<int> comb, List<int> set, int c_in, int setIndex, int setIndex_to_add, int c_in_foc)
+        //{
+        //    if (c_in == c_in_foc)
+        //    {
+        //        comb.Insert(0, set[setIndex_to_add]);
+        //    }
+        //}
+
+        public static int BinomialCoef(int n, int k)
+        {
+            BigNum N = n, K = k, coef = 0;
+            coef = N.factorial() / (K.factorial() * (N - K).factorial());
+            return (int)coef;
+        }
+
+        public static int  MultisetCoef(int n, int k)
+        {
+            return BinomialCoef(n + k - 1, k);
+        }
+
+        public static long Factorial(long num)
+        {
+            long prod = 1;
+            while (num > 0)
+            {
+                prod *= num;
+                num--;
+            }
+            return prod;
+        }
 
         public static bool IsEven(long num)
         {

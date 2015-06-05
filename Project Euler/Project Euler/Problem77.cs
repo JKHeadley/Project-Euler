@@ -24,6 +24,7 @@ namespace Project_Euler
     {
         public void Solve()
         {
+            long coef = Methods.MultisetCoef(3, 4);
             Methods.FindPrimeSummations(10);
             var primes = Methods.FindPrimesBelow(10);
             Console.WriteLine(string.Join(",", primes.ToArray()));
