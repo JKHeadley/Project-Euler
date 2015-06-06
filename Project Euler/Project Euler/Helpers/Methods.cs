@@ -148,83 +148,32 @@ namespace Project_Euler.Helpers
         {
             List<int> primes = FindPrimesBelow(num);
             int kCardinality = num / 2;
-            var primeCombinations = FindCombinations(primes, kCardinality);
-            //var unique = new HashSet<List<int>>(primeCombinations);
-            return primeCombinations;
+            List<List<int>> primeCombinations = new List<List<int>>();
+            List<List<int>> primeSummations = new List<List<int>>();
+            while (kCardinality >= 2)
+            {
+                var multiset = FindMultiset(primes, kCardinality);
+                primeCombinations.AddRange(multiset);
+                kCardinality--;
+            }
+
+            foreach (var combination in primeCombinations)
+            {
+                if (combination.Sum() == num)
+                {
+                    primeSummations.Add(combination);
+                }
+            }
+
+            return primeSummations;
         }
 
-        public static List<List<int>> FindCombinations(List<int> set, int kCardinality)
+        public static List<List<int>> FindMultiset(List<int> set, int kCardinality)
         {
             List<List<int>> combinations = new List<List<int>>();
-            //foreach (int num in set)
-            //{
-            //    List<int> item = new List<int>();
-            //    item.Add(num);
-            //    combinations.Add(item);
-            //}
-            return recursiveStuff(combinations, set, kCardinality);
-            //List<List<int>> combinations = new List<List<int>>();
-            //for (int i = 0; i < combSize; i++)
-            //{
-
-            //}
-        }
-
-        //private List<List<int>> recursiveFunc(List<int> combination, List<int> set, int combSize)
-        //{
-        //    List<List<int>> base_combinations = new List<List<int>>();
-        //    if (combSize == 1)
-        //    {
-        //        foreach (int num in set)
-        //        {
-        //            List<int> base_comb = new List<int>();
-        //            base_comb.Add(num);
-        //            base_combinations.Add(base_comb);
-        //        }
-        //        return base_combinations;
-        //    }
-        //    else
-        //    {
-        //        foreach (int num in set)
-        //        {
-
-        //        }
-        //    }
-        //        return recursiveFunc(combinations, set, combSize - 1);
-        //}
-
-        //private static List<List<int>> recursiveStuff(List<List<int>> combinations, List<int> set, int multisetSize)
-        //{
-        //    foreach (List<int> comb in combinations)
-        //    {
-        //        if (comb.Count < multisetSize)
-        //        {
-        //            for (int i = 0; i < set.Count; i++)
-        //            {
-        //                if (comb.Count < multisetSize)
-        //                {
-        //                    comb.Add(set[i]);
-        //                    if (comb.Count < multisetSize)
-        //                    {
-        //                        for (int j = i; j < set.Count - 1; j++)
-        //                        {
-        //                            combinations.Add(new List<int>(comb));
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //            return recursiveStuff(combinations, set, multisetSize);
-        //        }
-        //    }
-        //    return combinations;
-        //}
-
-        private static List<List<int>> recursiveStuff(List<List<int>> combinations, List<int> set, int kCardinality)
-        {
             int index = 0;
             int setIndex = 0;
-            int setIndex_to_add = 0;
-            int c_in_foc = kCardinality - 1;
+            int combinationIndex = kCardinality - 1;
             bool done = false;
             //initialize the first combination
             var comb = new List<int>();
@@ -234,31 +183,30 @@ namespace Project_Euler.Helpers
             }
             combinations.Add(comb);
             index++;
-            setIndex_to_add++;
+            setIndex++;
             //fill in the rest
             while (true)
             {
                 comb = new List<int>();
                 int i = 0;
-                while (i < c_in_foc)
+                while (i < combinationIndex)
                 {
-                    comb.Add(combinations[index-1][i]);
+                    comb.Add(combinations[index - 1][i]);
                     i++;
                 }
                 i--;
-                while(i < kCardinality - 1)
+                while (i < kCardinality - 1)
                 {
-                    comb.Add(set[setIndex_to_add]);
+                    comb.Add(set[setIndex]);
                     i++;
                 }
-                setIndex_to_add++;
+                setIndex++;
 
-
-                if (setIndex_to_add >= set.Count)
+                if (setIndex >= set.Count)
                 {
-                    for (; comb[c_in_foc] == set.Last(); c_in_foc--) 
+                    for (; comb[combinationIndex] == set.Last(); combinationIndex--)
                     {
-                        if (c_in_foc == 0)
+                        if (combinationIndex == 0)
                         {
                             combinations.Add(comb);
                             done = true;
@@ -267,11 +215,11 @@ namespace Project_Euler.Helpers
                     }
                     if (done == true)
                         break;
-                    setIndex_to_add = set.IndexOf(comb[c_in_foc]) + 1;
+                    setIndex = set.IndexOf(comb[combinationIndex]) + 1;
                 }
                 else
                 {
-                    for (; comb[c_in_foc] != set.Last() && c_in_foc < kCardinality - 1; c_in_foc++) { }
+                    for (; comb[combinationIndex] != set.Last() && combinationIndex < kCardinality - 1; combinationIndex++) { }
                 }
 
                 combinations.Add(comb);
@@ -279,27 +227,6 @@ namespace Project_Euler.Helpers
             }
             return combinations;
         }
-
-        //private static List<List<int>> recursiveStuff(List<List<int>> combinations, List<int> set, int kCardinality)
-        //{
-        //    int index = 0;
-        //    int setIndex = 0;
-        //    int setIndex_to_add = 0;
-        //    int c_in_foc = kCardinality + 1;
-        //    int c_in = 0;
-        //    bool addFlag = false;
-        //    initialize the first combination
-        //    var comb = new List<int>();
-        //    var comb_next = recursiveNext(comb, set, c_in ,setIndex, setIndex_to_add, c_in_foc);
-        //}
-
-        //public static recursiveNext(List<int> comb, List<int> set, int c_in, int setIndex, int setIndex_to_add, int c_in_foc)
-        //{
-        //    if (c_in == c_in_foc)
-        //    {
-        //        comb.Insert(0, set[setIndex_to_add]);
-        //    }
-        //}
 
         public static int BinomialCoef(int n, int k)
         {
