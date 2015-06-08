@@ -29,7 +29,7 @@ namespace Project_Euler
             {
                 var coef = Methods.MultisetCoef(num/2, num);
                 var summations = Methods.FindPrimeSummations(num);
-                if (summations.Summations.Count > 5000)
+                if (summations.SummationsCount > 5000)
                     break;
                 num++;
             }

@@ -13,7 +13,7 @@ namespace Project_Euler
         {
             Console.WriteLine("Enter problem # to solve (1-517):");
             //int probNum = Int32.Parse(Console.ReadLine());
-            int probNum = 77;
+            int probNum = 76;
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             switch (probNum)
@@ -97,6 +97,10 @@ namespace Project_Euler
                 case 63:
                     Console.WriteLine("Problem 63:\n");
                     new Problem63().Solve();
+                    break;
+                case 76:
+                    Console.WriteLine("Problem 76:\n");
+                    new Problem76().Solve();
                     break;
                 case 77:
                     Console.WriteLine("Problem 77:\n");

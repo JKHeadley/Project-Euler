@@ -179,6 +179,22 @@ namespace Project_Euler.Helpers
             return tree;
         }
 
+        public static MultisetTree FindSummations(int num)
+        {
+            List<int> numsBelow = new List<int>();
+
+            for (int i = 1; i < num; i++)
+            {
+                numsBelow.Add(i);
+            }
+
+            int kCardinality = numsBelow.Count;
+
+            MultisetTree tree = new MultisetTree(numsBelow, kCardinality, num);
+
+            return tree;
+        }
+
         public static List<List<int>> FindMultiset(List<int> set, int kCardinality)
         {
             List<List<int>> combinations = new List<List<int>>();

@@ -30,7 +30,8 @@ namespace Project_Euler.Helpers
     class MultisetTree
     {
         public List<Node> Root;
-        public List<Node> Summations;
+        //public List<Node> Summations;
+        public long SummationsCount;
         public int Height;
         public long Size;
         public MultisetTree(List<int> set, int height)
@@ -53,7 +54,8 @@ namespace Project_Euler.Helpers
         public MultisetTree(List<int> set, int height, int sumTo)
         {
             Size = set.Count;
-            Summations = new List<Node>();
+            //Summations = new List<Node>();
+            SummationsCount = 0;
             Root = new List<Node>();
             foreach (int num in set)
             {
@@ -105,9 +107,11 @@ namespace Project_Euler.Helpers
             if (currentNode.Sum >= sumTo)
             {
                 if (currentNode.Sum == sumTo)
-                    Summations.Add(currentNode);
-                currentNode.DeadBranch = true;
-                currentNode.Parent.DeadBranch = true;
+                    SummationsCount++;
+                //currentNode.DeadBranch = true;
+                //currentNode.Parent.DeadBranch = true;
+                currentNode.Parent = null;
+                currentNode = null;
                 return;
             }
             if (height == 1)
@@ -117,7 +121,7 @@ namespace Project_Euler.Helpers
             currentNode.Children = new List<Node>();
             for (int i = rootIndex; i < Root.Count; i++)
             {
-                if (!currentNode.DeadBranch)
+                if (currentNode != null && !currentNode.DeadBranch)
                 {
                     Node node = new Node(currentNode, Root[i].Value);
                     currentNode.Children.Add(node);
