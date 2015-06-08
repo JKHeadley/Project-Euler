@@ -24,10 +24,16 @@ namespace Project_Euler
     {
         public void Solve()
         {
-            long coef = Methods.MultisetCoef(3, 4);
-            Methods.FindPrimeSummations(10);
-            var primes = Methods.FindPrimesBelow(10);
-            Console.WriteLine(string.Join(",", primes.ToArray()));
+            int num = 2;
+            while (true)
+            {
+                var coef = Methods.MultisetCoef(num/2, num);
+                var summations = Methods.FindPrimeSummations(num);
+                if (summations.Summations.Count > 5000)
+                    break;
+                num++;
+            }
+            Console.WriteLine("The first number that can be written as the sum of primes in over five thousand ways is: " + num);
         }
     }
 }
